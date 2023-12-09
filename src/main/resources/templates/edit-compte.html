@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<h1>Edit new Compte</h1>
+	<form th:action="@{update}" method="POST">
+
+		<table>
+			<tr>
+				<td>Rib</td>
+				<td><input type="text" name="rib" th:value="${compte.rib}" readonly</td>
+			</tr>
+			<tr>
+				<td>nomClient</td>
+				<td><input type="text" name="nomClient" th:value="${compte.nomClient}"></td>
+			</tr>
+			<tr>
+				<td>solde</td>
+				<td><input type="text" name="solde" th:value="${compte.solde}"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="save" class="btn btn-primary"></td>
+			</tr>
+		</table>
+
+	</form>
+	
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/jquery-3.7.1.min.js"></script>
+	<script src="../js/sweetalert.min.js"></script>
+	<script src="../js/comptes.js"></script>
+</body>
+
+</html>
