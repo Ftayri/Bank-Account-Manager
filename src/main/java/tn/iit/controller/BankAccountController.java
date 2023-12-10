@@ -74,5 +74,10 @@ public class BankAccountController {
 		bankAccountService.save(bankAccount);
 		return "redirect:/comptes/";
 	}
+	@ResponseBody
+	@PostMapping("/edit-solde-ajax")
+	public BankAccount edit(@RequestParam(name = "rib") Integer rib,@RequestParam(name = "solde") Integer solde ) {
+		return bankAccountService.editSolde(rib,solde);
+	}
 
 }

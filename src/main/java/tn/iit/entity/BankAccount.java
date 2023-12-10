@@ -25,7 +25,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity // cet objet fera un mapping avec la base de données
-@Table(name = "t_compte")
+@Table(name = "accounts")
 public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 	private static final long serialVersionUID = 1L;
 	@Include
