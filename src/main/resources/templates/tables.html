@@ -27,8 +27,7 @@
                                 <tr>
                                     <th>RIB</th>
                                     <th>Solde</th>
-                                    <th>Name</th>
-                                    <th>Last Name</th>
+                                    <th>Client</th>
                                     <th>Cin</th>
                                     <th>Actions</th>
                                 </tr>
@@ -37,20 +36,19 @@
                                 <tr th:each="account : ${bankAccounts}" th:id="${'account-' + account.rib}">
                                     <td th:text="${account.rib}">RIB</td>
                                     <td th:text="${account.solde}">Solde</td>
-                                    <td th:text="${account.client.firstName}">Name</td>
-                                    <td th:text="${account.client.lastName}">Last Name</td>
+                                    <!-- Combine first name and last name into a single "Client" cell -->
+                                    <td th:text="${account.client.firstName + ' ' + account.client.lastName}">Client Name</td>
                                     <td th:text="${account.client.cin}">Cin</td>
                                     <td>
                                         <!-- Button to open the edit modal -->
-                                        <button type="button" class="btn btn-primary btn-sm editButton" data-bs-toggle="modal" data-bs-target="#editAccountModal" >
+                                        <button type="button" class="btn btn-primary btn-sm editButton" data-bs-toggle="modal" data-bs-target="#editAccountModal">
                                             <i class="fas fa-edit"></i> Edit
                                         </button>
+                                        <!-- Delete button -->
                                         <button type="button" class="btn btn-danger btn-sm deleteButton" th:onclick="'deleteAccount(\'' + ${account.rib} + '\');'">
                                             <i class="fas fa-trash-alt"></i> Delete
                                         </button>
                                     </td>
-
-
                                 </tr>
                                 </tbody>
                             </table>
@@ -82,17 +80,14 @@
                     <label for="editSolde" class="form-label">Solde:</label>
                     <input type="number" id="editSolde" name="solde" class="form-control" />
                 </div>
+                <!-- Combined Client Name field -->
                 <div class="mb-3">
-                    <label for="editFirstName" class="form-label">First Name:</label>
-                    <input type="text" id="editFirstName" name="firstName" class="form-control" readonly  />
-                </div>
-                <div class="mb-3">
-                    <label for="editLastName" class="form-label">Last Name:</label>
-                    <input type="text" id="editLastName" name="lastName" class="form-control" readonly  />
+                    <label for="editClient" class="form-label">Client:</label>
+                    <input type="text" id="editClient" name="client" class="form-control" disabled />
                 </div>
                 <div class="mb-3">
                     <label for="editCin" class="form-label">CIN:</label>
-                    <input type="text" id="editCin" name="cin" class="form-control" readonly />
+                    <input type="text" id="editCin" name="cin" class="form-control" disabled />
                 </div>
             </div>
             <div class="modal-footer">
@@ -124,11 +119,10 @@
             var rowData = dataTable.row($(this).closest('tr')).data();
 
             // Update modal input fields with DataTable values
-            $('#editRIB').val(rowData[0]);  // Assuming the first column
-            $('#editSolde').val(rowData[1]);  // Assuming the second column
-            $('#editFirstName').val(rowData[2]);  // Assuming the second column
-            $('#editLastName').val(rowData[3]);
-            $('#editCin').val(rowData[4]);  // Assuming the second column
+            $('#editRIB').val(rowData[0]);  // Assuming the first column is RIB
+            $('#editSolde').val(rowData[1]);  // Assuming the second column is Solde
+            $('#editClient').val(rowData[2]);  // Assuming the third column is Client (combining first and last name)
+            $('#editCin').val(rowData[3]);
 
             // Show the modal
             $('#editAccountModal').show();
