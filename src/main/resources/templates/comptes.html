@@ -35,15 +35,15 @@
 			<td>Delete-Ajax</td>
 			<td>Edit</td>
 		</tr>
-		<tr th:id="${compte.rib}" th:each="compte: ${comptes}">
-			<td th:text="${compte.rib}" />
-			<td th:text="${compte.client.nom}" />
-			<td th:text="${compte.solde}" />
-			<td><a th:href="'delete/'+${compte.rib}">Delete</a> </td>
-			<td><a th:href="|javascript:deleteCompte(${compte.rib})|">Delete-Ajax</a> </td>
+		<tr th:id="${bankAccount.rib}" th:each="bankAccount: ${comptes}">
+			<td th:text="${bankAccount.rib}" />
+			<td th:text="${bankAccount.client.nom}" />
+			<td th:text="${bankAccount.solde}" />
+			<td><a th:href="'delete/'+${bankAccount.rib}">Delete</a> </td>
+			<td><a th:href="|javascript:deleteCompte(${bankAccount.rib})|">Delete-Ajax</a> </td>
 			<td>
 				<form th:action="@{edit}" method="POST">
-					<input type="hidden" name="rib" th:value="${compte.rib}">
+					<input type="hidden" name="rib" th:value="${bankAccount.rib}">
 					<input type="submit" value="edit" class="btn btn-primary">
 				</form>
 			</td>

@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.AllArgsConstructor;
-import tn.iit.entity.Compte;
+import tn.iit.entity.BankAccount;
 import tn.iit.service.CompteService;
 
 @AllArgsConstructor
 
 @Controller
-@RequestMapping("/comptes")
-public class CompteController {
+@RequestMapping("/accounts")
+public class BankAccountController {
 
 	private CompteService compteService;
 
 	@ResponseBody
 	@GetMapping("/json")
-	public List<Compte> findAllJsosn() {
+	public List<BankAccount> findAllJsosn() {
 		return compteService.findAll();
 	}
 
@@ -49,8 +49,8 @@ public class CompteController {
 	
 	@PostMapping("/edit")
 	public String edit(@RequestParam(name = "rib") Integer rib, Model model) {
-		Compte compte = compteService.findById(rib);
-		model.addAttribute("compte", compte);
+		BankAccount bankAccount = compteService.findById(rib);
+		model.addAttribute("compte", bankAccount);
 		return "edit-compte";
 	}
 
@@ -64,14 +64,14 @@ public class CompteController {
 	public String save(@RequestParam(name = "nomClient") String nomClient, 
 			@RequestParam(name = "solde") float solde) {
 		//FIXME
-		Compte compte = null;//new Compte(nomClient, solde);
-		compteService.save(compte);
+		BankAccount bankAccount = null;//new Compte(nomClient, solde);
+		compteService.save(bankAccount);
 		return "redirect:/comptes/";
 	}
 
 	@PostMapping("/save2")
-	public String save2(@ModelAttribute Compte compte) {
-		compteService.save(compte);
+	public String save2(@ModelAttribute BankAccount bankAccount) {
+		compteService.save(bankAccount);
 		return "redirect:/comptes/";
 	}
 

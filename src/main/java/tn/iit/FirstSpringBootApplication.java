@@ -6,13 +6,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tn.iit.dao.ClientDao;
-import tn.iit.dao.CompteDao;
+import tn.iit.dao.BankAccountDao;
 
 @SpringBootApplication
 public class FirstSpringBootApplication implements CommandLineRunner {
 
     @Autowired
-    private CompteDao compteDao;
+    private BankAccountDao bankAccountDao;
 
     @Autowired
     private ClientDao clientDao;

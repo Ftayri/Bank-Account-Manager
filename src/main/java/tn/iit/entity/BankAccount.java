@@ -3,7 +3,6 @@ package tn.iit.entity;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +26,7 @@ import lombok.ToString;
 
 @Entity // cet objet fera un mapping avec la base de données
 @Table(name = "t_compte")
-public class Compte implements Serializable /* obligatoire selon JEE */ {
+public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 	private static final long serialVersionUID = 1L;
 	@Include
 	@Id // PK
@@ -39,7 +38,7 @@ public class Compte implements Serializable /* obligatoire selon JEE */ {
 	@JoinColumn(name="id_client")
 	private Client client;
 
-	public Compte(float solde, Client client) {
+	public BankAccount(float solde, Client client) {
 		super();
 		this.solde = solde;
 		this.client = client;
