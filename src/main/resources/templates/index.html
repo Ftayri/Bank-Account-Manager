@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:replace="~{layout :: head}"></th:block>
+<body>
+    <th:block th:replace="~{layout :: navbar}"></th:block>
+
+    <div id="layoutSidenav">
+        <th:block th:replace="~{layout :: sidenav}"></th:block>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <th:block th:replace="~{layout :: content}">
+                </th:block>
+            </main>
+            <th:block th:replace="~{layout :: footer}"></th:block>
+        </div>
+    </div>
+</body>
+</html>

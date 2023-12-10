@@ -37,7 +37,7 @@ public class CompteController {
 
 		modelAndView.addObject("comptes", compteService.findAll());
 
-		modelAndView.setViewName("comptes");// va à la page comptes.html
+		modelAndView.setViewName("tables");
 		return modelAndView;
 	}
 
