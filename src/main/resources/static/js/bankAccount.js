@@ -1,7 +1,7 @@
-function bankAccountEdit(rib, solde) {
+function bankAccountEdit(rib, balance) {
     swal({
         title: "Are you sure?",
-        text: "Once edited, you will not be able to undo the changes to the solde!",
+        text: "Once edited, you will not be able to undo the changes to the balance!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -9,14 +9,14 @@ function bankAccountEdit(rib, solde) {
         .then((willEdit) => {
             if (willEdit) {
                 $.ajax({
-                    url: "/accounts/edit-solde-ajax",  // Update this URL to your endpoint for editing account 'solde'
+                    url: "/accounts/edit-balance-ajax",  // Update this URL to your endpoint for editing account 'balance'
                     type: "POST",
                     data: {
                         'rib': rib,       // Send the account RIB to identify which account to update
-                        'solde': solde,   // Send the new solde value
+                        'balance': balance,   // Send the new balance value
                     },
                     success: function(response) {
-                        swal("Poof! The account solde has been edited!", {
+                        swal("Poof! The account balance has been edited!", {
                             icon: "success",
                         });
                         $("#editAccountModal").modal("hide");
@@ -24,15 +24,15 @@ function bankAccountEdit(rib, solde) {
                         // This assumes you use the RIB as an id in the DOM, or have another way to identify the row
                         var ribSelector = "account-" + rib;
                         var $row = $("#" + ribSelector);
-                        $row.find("td").eq(1).text(response.solde);// Update the solde cell with the new value
+                        $row.find("td").eq(1).text(response.balance);// Update the balance cell with the new value
                     },
                     error: function(xhr, status, error) {
                         // Handle error here
-                        swal("Error", "There was a problem editing the solde!", "error");
+                        swal("Error", "There was a problem editing the balance!", "error");
                     }
                 });
             } else {
-                swal("No changes made", "The account solde remains the same.");
+                swal("No changes made", "The account balance remains the same.");
             }
         });
 }

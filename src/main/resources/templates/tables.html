@@ -26,7 +26,7 @@
                                 <thead>
                                 <tr>
                                     <th>RIB</th>
-                                    <th>Solde</th>
+                                    <th>balance</th>
                                     <th>Client</th>
                                     <th>Cin</th>
                                     <th>Actions</th>
@@ -35,7 +35,7 @@
                                 <tbody>
                                 <tr th:each="account : ${bankAccounts}" th:id="${'account-' + account.rib}">
                                     <td th:text="${account.rib}">RIB</td>
-                                    <td th:text="${account.solde}">Solde</td>
+                                    <td th:text="${account.balance}">balance</td>
                                     <!-- Combine first name and last name into a single "Client" cell -->
                                     <td th:text="${account.client.firstName + ' ' + account.client.lastName}">Client Name</td>
                                     <td th:text="${account.client.cin}">Cin</td>
@@ -77,8 +77,8 @@
                     <input type="text" id="editRIB" name="rib" class="form-control" disabled  />
                 </div>
                 <div class="mb-3">
-                    <label for="editSolde" class="form-label">Solde:</label>
-                    <input type="number" id="editSolde" name="solde" class="form-control" />
+                    <label for="editbalance" class="form-label">balance:</label>
+                    <input type="number" id="editbalance" name="balance" class="form-control" />
                 </div>
                 <!-- Combined Client Name field -->
                 <div class="mb-3">
@@ -120,7 +120,7 @@
 
             // Update modal input fields with DataTable values
             $('#editRIB').val(rowData[0]);  // Assuming the first column is RIB
-            $('#editSolde').val(rowData[1]);  // Assuming the second column is Solde
+            $('#editbalance').val(rowData[1]);  // Assuming the second column is balance
             $('#editClient').val(rowData[2]);  // Assuming the third column is Client (combining first and last name)
             $('#editCin').val(rowData[3]);
 
@@ -132,12 +132,12 @@
             // Get the updated data from the modal inputs
             var updatedData = {
                 rib: $('#editRIB').val(),
-                solde: $('#editSolde').val(),
+                balance: $('#editbalance').val(),
                 // firstName: $('#editFirstName').val(),
                 // lastName: $('#editLastName').val(),
                 // cin: $('#editCin').val()
             };
-            javascript:bankAccountEdit(updatedData.rib,updatedData.solde);
+            javascript:bankAccountEdit(updatedData.rib,updatedData.balance);
         });
 
 

@@ -62,7 +62,7 @@ public class BankAccountController {
 
 	@PostMapping("/save")
 	public String save(@RequestParam(name = "nomClient") String nomClient, 
-			@RequestParam(name = "solde") float solde) {
+			@RequestParam(name = "balance") float balance) {
 		//FIXME
 		BankAccount bankAccount = null;//new Compte(nomClient, solde);
 		bankAccountService.save(bankAccount);
@@ -75,9 +75,9 @@ public class BankAccountController {
 		return "redirect:/comptes/";
 	}
 	@ResponseBody
-	@PostMapping("/edit-solde-ajax")
-	public BankAccount edit(@RequestParam(name = "rib") Integer rib,@RequestParam(name = "solde") Integer solde ) {
-		return bankAccountService.editSolde(rib,solde);
+	@PostMapping("/edit-balance-ajax")
+	public BankAccount edit(@RequestParam(name = "rib") Integer rib,@RequestParam(name = "balance") Integer balance ) {
+		return bankAccountService.editBalance(rib,balance);
 	}
 
 }

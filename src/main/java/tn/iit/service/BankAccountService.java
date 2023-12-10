@@ -28,9 +28,9 @@ public class BankAccountService {
 		return bankAccountDao.findById(rib).orElseThrow(()->new CompteNotFoundException(rib.toString()));
 	}
 
-	public BankAccount editSolde(Integer rib,float solde){
+	public BankAccount editBalance(Integer rib,float balance){
 		BankAccount x= bankAccountDao.findById(rib).orElseThrow(()->new CompteNotFoundException(rib.toString()));
-		x.setSolde(solde);
+		x.setBalance(balance);
 		bankAccountDao.save(x);
 		return x;
 

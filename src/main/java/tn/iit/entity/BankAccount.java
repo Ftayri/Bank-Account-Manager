@@ -32,7 +32,7 @@ public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 	@Id // PK
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment
 	private Integer rib;
-	private float solde;
+	private float balance;
 	//unidirectionnelle
 	@ManyToOne
 	@JoinColumn(name="id_client")
@@ -40,7 +40,7 @@ public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 
 	public BankAccount(float solde, Client client) {
 		super();
-		this.solde = solde;
+		this.balance = solde;
 		this.client = client;
 	}
 	//EAGER: lorsque je charge le compte, le client sera chargé avec
