@@ -35,9 +35,9 @@
 			<td>Delete-Ajax</td>
 			<td>Edit</td>
 		</tr>
-		<tr th:id="${bankAccount.rib}" th:each="bankAccount: ${comptes}">
+		<tr th:id="${bankAccount.rib}" th:each="bankAccount: ${bankAccounts}">
 			<td th:text="${bankAccount.rib}" />
-			<td th:text="${bankAccount.client.nom}" />
+			<td th:text="${bankAccount.client.firstName}" />
 			<td th:text="${bankAccount.solde}" />
 			<td><a th:href="'delete/'+${bankAccount.rib}">Delete</a> </td>
 			<td><a th:href="|javascript:deleteCompte(${bankAccount.rib})|">Delete-Ajax</a> </td>

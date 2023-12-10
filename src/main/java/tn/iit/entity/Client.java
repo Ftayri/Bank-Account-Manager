@@ -24,8 +24,8 @@ public class Client implements Serializable /* obligatoire selon JEE */ {
     @Id // PK
     @Column(length = 10)
     private String cin;
-    private String nom;
-    private String prenom;
+    private String firstName;
+    private String lastName;
     private String address;
 
     // bidirectionnelle
@@ -36,11 +36,11 @@ public class Client implements Serializable /* obligatoire selon JEE */ {
     private List<BankAccount> bankAccounts;
     //default fetch LAZY
 
-    public Client(String cin, String nom, String prenom, String address) {
+    public Client(String cin, String firstName, String lastName, String address) {
         super();
         this.cin = cin;
-        this.nom = nom;
-        this.prenom = prenom;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
     }
 

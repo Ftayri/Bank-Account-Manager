@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import lombok.AllArgsConstructor;
 import tn.iit.entity.BankAccount;
-import tn.iit.service.CompteService;
+import tn.iit.service.BankAccountService;
 
 @AllArgsConstructor
 
@@ -23,19 +23,19 @@ import tn.iit.service.CompteService;
 @RequestMapping("/accounts")
 public class BankAccountController {
 
-	private CompteService compteService;
+	private BankAccountService bankAccountService;
 
 	@ResponseBody
 	@GetMapping("/json")
 	public List<BankAccount> findAllJsosn() {
-		return compteService.findAll();
+		return bankAccountService.findAll();
 	}
 
 	@GetMapping({ "/", "" })
 	public ModelAndView findAll() {
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("comptes", compteService.findAll());
+		modelAndView.addObject("bankAccounts", bankAccountService.findAll());
 
 		modelAndView.setViewName("tables");
 		return modelAndView;
@@ -43,13 +43,13 @@ public class BankAccountController {
 
 	@GetMapping("/delete/{rib}")
 	public String delete(@PathVariable(name = "rib") Integer rib) {
-		compteService.delete(rib);
+		bankAccountService.delete(rib);
 		return "redirect:/comptes/";
 	}
 	
 	@PostMapping("/edit")
 	public String edit(@RequestParam(name = "rib") Integer rib, Model model) {
-		BankAccount bankAccount = compteService.findById(rib);
+		BankAccount bankAccount = bankAccountService.findById(rib);
 		model.addAttribute("compte", bankAccount);
 		return "edit-compte";
 	}
@@ -57,7 +57,7 @@ public class BankAccountController {
 	@ResponseBody
 	@PostMapping("/delete-ajax")
 	public void deleteAjax(@RequestParam(name = "rib") Integer rib) {
-		compteService.delete(rib);
+		bankAccountService.delete(rib);
 	}
 
 	@PostMapping("/save")
@@ -65,13 +65,13 @@ public class BankAccountController {
 			@RequestParam(name = "solde") float solde) {
 		//FIXME
 		BankAccount bankAccount = null;//new Compte(nomClient, solde);
-		compteService.save(bankAccount);
+		bankAccountService.save(bankAccount);
 		return "redirect:/comptes/";
 	}
 
 	@PostMapping("/save2")
 	public String save2(@ModelAttribute BankAccount bankAccount) {
-		compteService.save(bankAccount);
+		bankAccountService.save(bankAccount);
 		return "redirect:/comptes/";
 	}
 

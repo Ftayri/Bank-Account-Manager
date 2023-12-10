@@ -11,7 +11,7 @@ import tn.iit.exception.CompteNotFoundException;
 
 @AllArgsConstructor
 @Service
-public class CompteService {
+public class BankAccountService {
 	private BankAccountDao bankAccountDao;
  
 	public void save(BankAccount bankAccount) {
