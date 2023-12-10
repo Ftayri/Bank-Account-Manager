@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layout :: head}"></th:block>
+<body>
+<th:block th:replace="~{layout :: navbar}"></th:block>
+
+<div id="layoutSidenav">
+    <th:block th:replace="~{layout :: sidenav}"></th:block>
+
+    <div id="layoutSidenav_content">
+        <div th:fragment="content">
+            <!-- ONLY REPLACE HERE -->
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Tables</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+                    <li class="breadcrumb-item active"><i class="fa-solid fa-user"></i> Clients</li>
+                </ol>
+                <div class="card mb-4">
+                    <!-- TODO FORM-->
+                </div>
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-end">
+                        <button type="button" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Client</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="clients-table">
+                            <thead>
+                            <tr>
+                                <th>CIN</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>Number of Accounts</th>
+                                <th>Total Balance</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>CIN</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>Number of Accounts</th>
+                                <th>Total Balance</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END REPLACE HERE -->
+        </div>
+        <th:block th:replace="~{layout :: footer}"></th:block>
+    </div>
+</div>
+<th:block th:replace="~{layout :: scripts}"></th:block>
+</body>
+</html>

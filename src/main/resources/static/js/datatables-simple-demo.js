@@ -1,9 +1,17 @@
-window.addEventListener('DOMContentLoaded', event => {
-    // Simple-DataTables
-    // https://github.com/fiduswriter/Simple-DataTables/wiki
-
-    const datatablesSimple = document.getElementById('datatablesSimple');
-    if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple);
-    }
+$(document).ready(function () {
+    new DataTable('#clients-table', {
+        "ajax": {
+            "url": "/clients/data-table",
+            "type": "GET"
+        },
+        "processing": true,
+        "serverSide": true,
+        "columns": [
+            { "data": "cin" },
+            { "data": "fullName" },
+            { "data": "address" },
+            { "data": "numberOfAccounts" },
+            { "data": "totalBalance" }
+        ],
+    });
 });

@@ -25,22 +25,22 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity // cet objet fera un mapping avec la base de données
-@Table(name = "t_compte")
+@Table(name = "accounts")
 public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 	private static final long serialVersionUID = 1L;
 	@Include
 	@Id // PK
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment
 	private Integer rib;
-	private float solde;
+	private float balance;
 	//unidirectionnelle
 	@ManyToOne
 	@JoinColumn(name="id_client")
 	private Client client;
 
-	public BankAccount(float solde, Client client) {
+	public BankAccount(float balance, Client client) {
 		super();
-		this.solde = solde;
+		this.balance = balance;
 		this.client = client;
 	}
 	//EAGER: lorsque je charge le compte, le client sera chargé avec
