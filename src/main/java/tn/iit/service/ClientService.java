@@ -1,5 +1,6 @@
 package tn.iit.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,13 @@ public class ClientService {
         }
         clientDao.save(client);
     }
-
+    public void edit(Client client){
+        Optional<Client> existingClient = clientDao.findById(client.getCin());
+        if (existingClient.isEmpty()) {
+            throw new EntityNotFoundException("No Client with the given CIN exists.");
+        }
+        clientDao.save(client);
+    }
     public void delete(String cin) {
         clientDao.deleteById(cin);
     }

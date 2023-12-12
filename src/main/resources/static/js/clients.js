@@ -1,37 +1,67 @@
 $(document).ready(function () {
-    // Initialize DataTable
-    var dataTable = $('#datatablesSimple').DataTable();
+    var dataTable = $('#clients-table').DataTable();
 
-    // Handle button click event
-    $('#datatablesSimple tbody').on('click', '.editButton', function () {
-        // Get the data from the clicked row
+    $('#clients-table tbody').on('click', '.editButton', function () {
+        console.log('click')
         var rowData = dataTable.row($(this).closest('tr')).data();
+        var fullName = rowData.fullName;
 
-        // Update modal input fields with DataTable values
-        $('#editRIB').val(rowData[0]);  // Assuming the first column is RIB
-        $('#editbalance').val(rowData[1]);  // Assuming the second column is balance
-        $('#editClient').val(rowData[2]);  // Assuming the third column is Client (combining first and last name)
-        $('#editCin').val(rowData[3]);
+        var names = fullName.split(' ');
+        var firstName = names[0];
+        var lastName = names.slice(1).join(' ');
 
-        // Show the modal
-        $('#editAccountModal').show();
+        $('#edit-first-name').val(firstName);
+        $('#edit-last-name').val(lastName);
+        $('#edit-address').val(rowData.address);
+        $('#edit-cin').val(rowData.cin);
+
+        $('#edit-client-modal').show();
     });
-    // Handle button click event for save changes
-    $('#saveAccountChangesButton').on('click', function () {
-        // Get the updated data from the modal inputs
+    $('#edit-client-button').on('click', function () {
         var updatedData = {
-            rib: $('#editRIB').val(),
-            balance: $('#editbalance').val(),
-            // firstName: $('#editFirstName').val(),
-            // lastName: $('#editLastName').val(),
-            // cin: $('#editCin').val()
+            cin: $('#edit-cin').val(),
+            firstName: $('#edit-first-name').val(),
+            lastName: $('#edit-last-name').val(),
+            address: $('#edit-address').val(),
         };
-        javascript:bankAccountEdit(updatedData.rib,updatedData.balance);
+        clientEdit(updatedData.cin,updatedData.firstName,updatedData.lastName,updatedData.address);
     });
-
-
-
-
-
-
 });
+function updateDataTable() {
+    $('#clients-table').DataTable().ajax.reload(null, false);
+}
+function clientEdit(cin, firstName, lastName, address) {
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure you want to edit the client to this data: "+firstName+" "+lastName+", "+address,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willEdit) => {
+            if (willEdit) {
+                $.ajax({
+                    url: "/clients/edit",
+                    type: "POST",
+                    data: {
+                        'cin': cin,
+                        'firstName': firstName,
+                        'lastName': lastName,
+                        'address': address
+                    },
+                    success: function(response) {
+                        swal("Poof! The client has been edited!", {
+                            icon: "success",
+                        });
+                        updateDataTable();
+                        $("#edit-client-modal").modal("hide");
+                    },
+                    error: function(xhr, status, error) {
+                        swal("Error", "There was a problem editing the client!", "error");
+                    }
+                });
+            } else {
+                swal("No changes made", "The client's data remains the same.");
+            }
+        });
+}

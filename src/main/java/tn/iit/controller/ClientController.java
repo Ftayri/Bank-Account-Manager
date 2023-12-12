@@ -1,5 +1,6 @@
 package tn.iit.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,29 @@ public class ClientController {
 			return "redirect:/clients/";
 		} catch (DuplicateKeyException e) {
 			List<String> errorMessages = new ArrayList<>();
-			errorMessages.add("Client with the same cin already exists");
+			errorMessages.add(e.getMessage());
+			redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
+			return "redirect:/clients/";
+		}
+	}
+
+	@PostMapping("/edit")
+	public String edit(@Valid Client client, BindingResult result, RedirectAttributes redirectAttributes) {
+		System.out.println(client);
+		try {
+			if (result.hasErrors()) {
+				List<String> errorMessages = result.getAllErrors()
+						.stream()
+						.map(DefaultMessageSourceResolvable::getDefaultMessage)
+						.collect(Collectors.toList());
+				redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
+				return "redirect:/clients/";
+			}
+			clientService.edit(client);
+			return "redirect:/clients/";
+		} catch (EntityNotFoundException e) {
+			List<String> errorMessages = new ArrayList<>();
+			errorMessages.add(e.getMessage());
 			redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
 			return "redirect:/clients/";
 		}
