@@ -1,6 +1,7 @@
 package tn.iit.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import tn.iit.exception.CompteNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -21,7 +23,12 @@ import java.util.stream.Collectors;
 public class ClientService {
     private ClientDao clientDao;
 
-    public void save(Client client) {
+    public void save(Client client) throws DuplicateKeyException {
+        Optional<Client> existingClient = clientDao.findById(client.getCin());
+
+        if (existingClient.isPresent()) {
+            throw new DuplicateKeyException("Client with the same cin already exists");
+        }
         clientDao.save(client);
     }
 

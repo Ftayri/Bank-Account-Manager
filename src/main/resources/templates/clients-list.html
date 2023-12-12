@@ -16,12 +16,14 @@
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
                     <li class="breadcrumb-item active"><i class="fa-solid fa-user"></i> Clients</li>
                 </ol>
-                <div class="card mb-4">
-                    <!-- TODO FORM-->
+                <div class="alert alert-danger" th:if="${errorMessages}">
+                    <ul>
+                        <li th:each="errorMessage : ${errorMessages}" th:text="${errorMessage}"></li>
+                    </ul>
                 </div>
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-end">
-                        <button type="button" class="btn btn-success"><i class="fa-solid fa-plus"></i> Add Client</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add-client-modal"><i class="fa-solid fa-plus"></i> Add Client</button>
                     </div>
                     <div class="card-body">
                         <table id="clients-table">
@@ -53,6 +55,74 @@
             <!-- END REPLACE HERE -->
         </div>
         <th:block th:replace="~{layout :: footer}"></th:block>
+    </div>
+</div>
+<div class="modal fade" id="add-client-modal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{save}" method="POST">
+                <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="FirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="FirstName" name="firstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="LastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="LastName" name="lastName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="Address" name="address">
+                        </div>
+                        <div class="mb-3">
+                            <label for="CIN" class="form-label">CIN</label>
+                            <input type="text" class="form-control" id="CIN" name="cin">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Client</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="edit-client-modal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Add New Client</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{edit}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="FirstNameEdit" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="FirstNameEdit" name="firstName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="LastNameEdit" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="LastNameEdit" name="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="AddressEdit" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="AddressEdit" name="address">
+                    </div>
+                    <div class="mb-3">
+                        <label for="CINEdit" class="form-label">CIN</label>
+                        <input type="text" class="form-control" id="CINEdit" name="cin" disabled>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Client</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <th:block th:replace="~{layout :: scripts}"></th:block>
