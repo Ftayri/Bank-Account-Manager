@@ -30,7 +30,9 @@ public class FirstSpringBootApplication implements CommandLineRunner {
         Client c1 =new Client("111","Hatem","zouari","Sfax" );
         BankAccount b1=new BankAccount(1000,c1);
         BankAccount b2=new BankAccount(204444,c1);
+        Client c2= new Client("111","hatem","zouari","sousse");
         clientDao.save(c1);
+        clientDao.save(c2);
         bankAccountDao.save(b1);
         bankAccountDao.save(b2);
 

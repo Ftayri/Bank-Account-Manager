@@ -1,5 +1,6 @@
 package tn.iit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.AllArgsConstructor;
+import tn.iit.dao.ClientDao;
 import tn.iit.entity.BankAccount;
+import tn.iit.entity.Client;
 import tn.iit.service.BankAccountService;
 
 @AllArgsConstructor
@@ -23,7 +26,10 @@ import tn.iit.service.BankAccountService;
 @RequestMapping("/accounts")
 public class BankAccountController {
 
+
+
 	private BankAccountService bankAccountService;
+
 
 	@ResponseBody
 	@GetMapping("/json")
@@ -33,13 +39,17 @@ public class BankAccountController {
 
 	@GetMapping({ "/", "" })
 	public ModelAndView findAll() {
+		Client c2= new Client("2344","hatem","zouari","sousse");
+
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("bankAccounts", bankAccountService.findAll());
-
-		modelAndView.setViewName("tables");
+		modelAndView.addObject("clients", c2);
+		modelAndView.setViewName("accounts-list");
 		return modelAndView;
 	}
+
 
 	@GetMapping("/delete/{rib}")
 	public String delete(@PathVariable(name = "rib") Integer rib) {
@@ -70,9 +80,11 @@ public class BankAccountController {
 	}
 
 	@PostMapping("/save2")
-	public String save2(@ModelAttribute BankAccount bankAccount) {
-		bankAccountService.save(bankAccount);
-		return "redirect:/comptes/";
+	public String save2(@RequestParam(name = "cin") String cin,
+						@RequestParam(name = "balance") float balance) {
+		//findById client after add it
+
+		return "redirect:/accounts/";
 	}
 	@ResponseBody
 	@PostMapping("/edit-balance-ajax")
