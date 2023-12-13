@@ -14,7 +14,6 @@ import tn.iit.entity.BankAccount;
 import tn.iit.entity.Client;
 import tn.iit.exception.CompteNotFoundException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,19 +31,17 @@ public class ClientService {
         }
         clientDao.save(client);
     }
-    public void edit(Client client){
+
+    public void edit(Client client) {
         Optional<Client> existingClient = clientDao.findById(client.getCin());
         if (existingClient.isEmpty()) {
             throw new EntityNotFoundException("No Client with the given CIN exists.");
         }
         clientDao.save(client);
     }
+
     public void delete(String cin) {
         clientDao.deleteById(cin);
-    }
-
-    public List<ClientDto> findAll() {
-        return convertClientsToDTOs(clientDao.findAll());
     }
 
     public Client findById(String cin) {
@@ -52,7 +49,6 @@ public class ClientService {
     }
 
     public List<ClientDto> getClientsForDataTable(int start, int length, String searchValue, String orderDir) {
-        List<String> columnNames = Arrays.asList("cin", "fullName", "address", "numberOfAccounts", "totalBalance");
         Pageable pageable = PageRequest.of(start / length, length, orderDir != null ? Sort.Direction.fromString(orderDir) : Sort.Direction.ASC, "cin"
 
         );

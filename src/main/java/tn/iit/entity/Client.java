@@ -18,9 +18,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
-@Entity // cet objet fera un mapping avec la base de données
+@Entity
 @Table(name = "clients")
-public class Client implements Serializable /* obligatoire selon JEE */ {
+public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     @Include
     @Id
@@ -35,13 +35,10 @@ public class Client implements Serializable /* obligatoire selon JEE */ {
     @NotEmpty(message = "Address cannot be empty.")
     private String address;
 
-    // bidirectionnelle
-    @Exclude // casser la boucle toString
-    @JsonIgnore // casser la boucle Json
+    @Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    // à elle seule --> table de jointure
     private List<BankAccount> bankAccounts;
-    //default fetch LAZY
 
     public Client(String cin, String firstName, String lastName, String address) {
         super();

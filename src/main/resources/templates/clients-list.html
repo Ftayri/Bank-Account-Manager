@@ -11,10 +11,10 @@
         <div th:fragment="content">
             <!-- ONLY REPLACE HERE -->
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Tables</h1>
+                <h1 class="mt-4">Clients</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
-                    <li class="breadcrumb-item active"><i class="fa-solid fa-user"></i> Clients</li>
+                    <li class="breadcrumb-item"><i class="fa-solid fa-gauge-high"></i> Dashboard</li>
+                    <li class="breadcrumb-item active"><i class="fa-solid fa-users"></i> Clients</li>
                 </ol>
                 <div class="alert alert-danger" th:if="${errorMessages}">
                     <ul>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="edit-cin" class="form-label">CIN</label>
-                        <input type="text" class="form-control" id="edit-cin" name="cin">
+                        <input type="text" class="form-control" id="edit-cin" name="cin" disabled>
                     </div>
                 </div>
                 <div class="modal-footer">
