@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import tn.iit.dao.ClientDao;
 import tn.iit.dao.BankAccountDao;
 import tn.iit.entity.BankAccount;
@@ -35,6 +38,12 @@ public class FirstSpringBootApplication implements CommandLineRunner {
         clientDao.save(c2);
         bankAccountDao.save(b1);
         bankAccountDao.save(b2);
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        // Replace "yourPlaintextPassword" with the password you want to encrypt.
+//        String encryptedPassword = passwordEncoder.encode("admin");
+//        System.out.println(encryptedPassword);
+
+
 
 
 
