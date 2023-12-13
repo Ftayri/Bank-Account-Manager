@@ -38,15 +38,9 @@ public class BankAccount implements Serializable /* obligatoire selon JEE */ {
 	@JoinColumn(name="id_client")
 	private Client client;
 
-	public BankAccount(float solde, Client client) {
+	public BankAccount(float balance, Client client) {
 		super();
-		this.balance = solde;
+		this.balance = balance;
 		this.client = client;
 	}
-	//EAGER: lorsque je charge le compte, le client sera chargé avec
-	//LAZY: lorsque je charge le compte, le client ne sera pas chargé
-	// Il sera charge sur demande de la méthode getClient()
-	// Default fetch
-	// 1 --> EAGER
-	// * --> LAZY
 }
