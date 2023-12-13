@@ -54,6 +54,11 @@ function clientEdit(cin, firstName, lastName, address) {
                         });
                         updateDataTable();
                         $("#edit-client-modal").modal("hide");
+                        let errorMessageContainer = $(".alert-danger");
+                        if(errorMessageContainer){
+                            errorMessageContainer.hide();
+                        }
+
                     },
                     error: function(xhr, status, error) {
                         swal("Error", "There was a problem editing the client!", "error");

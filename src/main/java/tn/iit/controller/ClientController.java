@@ -44,6 +44,11 @@ public class ClientController {
 		return "clients-list";
 	}
 
+	@GetMapping("/{id}")
+	public String getClientById(@PathVariable(name="id") String id){
+		return "clients-list";
+	}
+
 	@PostMapping("/save")
 	public String save(@Valid Client client, BindingResult result, RedirectAttributes redirectAttributes) {
 		try {
