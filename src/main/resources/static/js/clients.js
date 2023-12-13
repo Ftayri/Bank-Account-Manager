@@ -2,7 +2,6 @@ $(document).ready(function () {
     var dataTable = $('#clients-table').DataTable();
 
     $('#clients-table tbody').on('click', '.editButton', function () {
-        console.log('click')
         var rowData = dataTable.row($(this).closest('tr')).data();
         var fullName = rowData.fullName;
 
@@ -58,10 +57,57 @@ function clientEdit(cin, firstName, lastName, address) {
                     },
                     error: function(xhr, status, error) {
                         swal("Error", "There was a problem editing the client!", "error");
+                        let errorMessages = xhr.responseText ? JSON.parse(xhr.responseText): ["There was a problem editing the client!"];
+                        showErrorMessage(errorMessages);
                     }
                 });
             } else {
                 swal("No changes made", "The client's data remains the same.");
             }
         });
+}
+
+function deleteClient(cin) {
+
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this client!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: "/clients/delete",
+                    type: "POST",
+                    data: {'cin': cin},
+                    success: function () {
+                        swal("Poof! Client has been deleted!", {
+                            icon: "success",
+                        });
+                        updateDataTable();
+                    }
+                });
+
+            } else {
+                swal(" Client is safe!");
+            }
+        });
+}
+function showErrorMessage(errorMessages) {
+    let errorMessageContainer = $(".alert-danger");
+
+    if (errorMessageContainer.length === 0) {
+        errorMessageContainer = $('<div class="alert alert-danger"></div>');
+        errorMessageContainer.append('<ul></ul>');
+        $("body").append(errorMessageContainer);
+    } else {
+        errorMessageContainer.find("ul").empty();
+    }
+
+    for (let i = 0; i < errorMessages.length; i++) {
+        errorMessageContainer.find("ul").append("<li>" + errorMessages[i] + "</li>");
+    }
+    $('#table').before(errorMessageContainer);
 }

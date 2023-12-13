@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,25 +66,27 @@ public class ClientController {
 	}
 
 	@PostMapping("/edit")
-	public String edit(@Valid Client client, BindingResult result, RedirectAttributes redirectAttributes) {
-		System.out.println(client);
+	public ResponseEntity<Object> edit(@Valid Client client, BindingResult result, RedirectAttributes redirectAttributes) {
 		try {
 			if (result.hasErrors()) {
 				List<String> errorMessages = result.getAllErrors()
 						.stream()
 						.map(DefaultMessageSourceResolvable::getDefaultMessage)
-						.collect(Collectors.toList());
-				redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
-				return "redirect:/clients/";
+						.toList();
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages);
 			}
 			clientService.edit(client);
-			return "redirect:/clients/";
+			return ResponseEntity.ok("Client edited successfully");
 		} catch (EntityNotFoundException e) {
-			List<String> errorMessages = new ArrayList<>();
-			errorMessages.add(e.getMessage());
-			redirectAttributes.addFlashAttribute("errorMessages", errorMessages);
-			return "redirect:/clients/";
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(e.getMessage());
 		}
+	}
+
+	@ResponseBody
+	@PostMapping("/delete")
+	public void delete(@RequestParam(name="cin") String cin){
+		clientService.delete(cin);
 	}
 
 

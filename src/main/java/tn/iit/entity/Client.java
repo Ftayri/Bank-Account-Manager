@@ -24,8 +24,8 @@ public class Client implements Serializable /* obligatoire selon JEE */ {
     private static final long serialVersionUID = 1L;
     @Include
     @Id
-    @Column(length = 10, nullable = false, unique = true)
-    @Size(min = 10, max = 10, message = "CIN must be exactly 10 characters")
+    @Column(length = 8, nullable = false, unique = true)
+    @Size(min = 8, max = 8, message = "CIN must be exactly 10 characters")
     private String cin;
 
     @NotEmpty(message = "First Name cannot be empty.")
