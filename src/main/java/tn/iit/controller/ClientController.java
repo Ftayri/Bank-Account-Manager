@@ -49,6 +49,11 @@ public class ClientController {
 		return "clients-list";
 	}
 
+	@GetMapping("/auto-complete")
+	public ResponseEntity<List<ClientDto>> getClients(@RequestParam("term") String term) {
+		List<ClientDto> clients = clientService.searchClientAutoComplete(term);
+		return new ResponseEntity<>(clients, HttpStatus.OK);
+	}
 	@PostMapping("/save")
 	public String save(@Valid Client client, BindingResult result, RedirectAttributes redirectAttributes) {
 		try {

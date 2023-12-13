@@ -43,8 +43,8 @@ public class ClientService {
         clientDao.deleteById(cin);
     }
 
-    public List<Client> findAll() {
-        return clientDao.findAll();
+    public List<ClientDto> findAll() {
+        return convertClientsToDTOs(clientDao.findAll());
     }
 
     public Client findById(String cin) {
@@ -78,5 +78,10 @@ public class ClientService {
 
     private float calculateTotalBalance(List<BankAccount> bankAccounts) {
         return (float) bankAccounts.stream().mapToDouble(BankAccount::getBalance).sum();
+    }
+
+    public List<ClientDto> searchClientAutoComplete(String searchValue) {
+        List<Client> clients = clientDao.findByCinContainingOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrAddressContainingIgnoreCase(searchValue, searchValue, searchValue, searchValue);
+        return convertClientsToDTOs(clients);
     }
 }
