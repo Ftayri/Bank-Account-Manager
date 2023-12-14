@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.iit.dao.BankAccountDao;
 import tn.iit.entity.BankAccount;
+import tn.iit.entity.Client;
 import tn.iit.exception.CompteNotFoundException;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class BankAccountService {
         return bankAccountDao.findByOrderByRibDesc();
     }
 
+    public List<BankAccount> findByClient(Client client){ return bankAccountDao.findByClient(client);}
     public BankAccount findById(Integer rib) {
         return bankAccountDao.findById(rib).orElseThrow(() -> new CompteNotFoundException(rib.toString()));
     }

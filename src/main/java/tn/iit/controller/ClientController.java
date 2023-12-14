@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tn.iit.dto.ClientDto;
 import tn.iit.dto.DataTablesResponse;
 import tn.iit.entity.Client;
+import tn.iit.service.BankAccountService;
 import tn.iit.service.ClientService;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class ClientController {
 
     ClientService clientService;
 
+    BankAccountService bankAccountService;
+
     @GetMapping({"/", ""})
     public String getClients(RedirectAttributes redirectAttributes, Model model) {
 
@@ -40,6 +44,16 @@ public class ClientController {
         }
 
         return "clients-list";
+    }
+
+    @GetMapping("/{cin}")
+    public ModelAndView getClientById(@PathVariable(name="cin") String cin) {
+        ModelAndView modelAndView = new ModelAndView();
+        Client client = clientService.findById(cin);
+        modelAndView.addObject("bankAccounts", bankAccountService.findByClient(client));
+        modelAndView.addObject("client",client);
+        modelAndView.setViewName("accounts-list");
+        return modelAndView;
     }
 
     @GetMapping("/auto-complete")

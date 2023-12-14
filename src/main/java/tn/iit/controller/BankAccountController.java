@@ -1,5 +1,6 @@
 package tn.iit.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,11 +46,12 @@ public class BankAccountController {
 
     @PostMapping("/save")
     public String save(@RequestParam(name = "cin") String cin,
-                       @RequestParam(name = "balance") float balance) {
+                       @RequestParam(name = "balance") float balance,  HttpServletRequest request) {
         Client client = clientService.findById(cin);
         BankAccount bankAccount = new BankAccount(balance, client);
         bankAccountService.save(bankAccount);
-        return "redirect:/accounts/";
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
     @ResponseBody

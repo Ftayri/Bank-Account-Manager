@@ -22,7 +22,7 @@ $(document).ready(function () {
             rib: $('#editRIB').val(),
             balance: $('#editbalance').val(),
         };
-        javascript:bankAccountEdit(updatedData.rib,updatedData.balance);
+        bankAccountEdit(updatedData.rib,updatedData.balance);
     });
 });
 function bankAccountEdit(rib, balance) {
@@ -47,14 +47,11 @@ function bankAccountEdit(rib, balance) {
                             icon: "success",
                         });
                         $("#editAccountModal").modal("hide");
-                        // Now you need to select the account row with jQuery
-                        // This assumes you use the RIB as an id in the DOM, or have another way to identify the row
                         var ribSelector = "account-" + rib;
                         var $row = $("#" + ribSelector);
                         $row.find("td").eq(1).text(response.balance);// Update the balance cell with the new value
                     },
                     error: function(xhr, status, error) {
-                        // Handle error here
                         swal("Error", "There was a problem editing the balance!", "error");
                     }
                 });
@@ -107,7 +104,7 @@ $(document).ready(function() {
                     response($.map(data, function(item) {
                         return {
                             label: item.cin,
-                            value: item.fullName + " - " + item.cin + " - " + item.address, // This will populate the input with the cin when selected
+                            value: item.fullName + " - " + item.cin + " - " + item.address,
                             cin: item.cin,
                         };
                     }));
